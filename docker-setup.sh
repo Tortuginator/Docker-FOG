@@ -1,6 +1,6 @@
 #!/bin/sh
 ## Database user and password must be included in the variables DB_USER, DB_PASS and DB_NAME
-
+echo "loading"
 DB_HOSTNAME=`echo $DB_PORT | cut -f3 -d/ | cut -f1 -d:`
 DB_PORT_INT=`echo $DB_PORT | cut -f3 -d:`
 DB_NAME_INT=${DB_NAME:-"fog"}

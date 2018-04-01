@@ -1,11 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 
 /etc/init.d/rpcbind stop
-#Setup PXE boot
-cp /tftpboot/default.ipxe /tftpboot/default.ipxe.tmp
-sed '$ d' /tftpboot/default.ipxe.tmp > /tftpboot/default.ipxe
-rm -f /tftpboot/default.ipxe.tmp
-echo "chain http://$PXEext/fog/service/ipxe/boot.php##params" >> /tftpboot/default.ipxe
 
 #Trigger service start
 /etc/init.d/rpcbind start

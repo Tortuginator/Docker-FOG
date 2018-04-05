@@ -1,9 +1,10 @@
-FROM ubuntu:latest
+FROM debian:latest
 MAINTAINER Felix Friedberger <felix.friedberger@rwth-aachen.de>
 
 ##DOWNLOAD ALL PACKAGES
 RUN apt-get update
 RUN apt-get install -y iproute2 locales wget net-tools nano git
 RUN apt-get install -y python2.7 python-pip
+RUN apt-get install -y bc cpp curl g++ gawk gcc gzip htmldoc isolinux m4 unzip xinetd zlib1g
 RUN apt-get clean 
 RUN locale-gen en_US.UTF-8

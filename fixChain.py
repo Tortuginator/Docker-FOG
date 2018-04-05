@@ -5,14 +5,14 @@ print "Applying all IP and INTERFACE values"
 print "RCV ip: "+str(os.environ['EXTIP'])
 
 ##PHP chain
-with open('\tftpboot\default.ipxe', 'r') as file:
+with open('/tftpboot/default.ipxe', 'r') as file:
     data = file.readlines()
 
 for i in range(0,len(data)):
 	if "chain" in data[i]:
 		data[i] = "chain http://" + str(os.environ['EXTIP']) + "/fog/service/ipxe/boot.php##params"
 		
-with open('\tftpboot\default.ipxe', 'w') as file:
+with open('/tftpboot/default.ipxe', 'w') as file:
     file.writelines( data )
 	
 ##PHP config TFTP/WEB

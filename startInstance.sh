@@ -11,5 +11,6 @@
 /usr/sbin/apachectl -D FOREGROUND
 
 #If the commands above do not trigger the service start for some reason
+in.tftpd --listen --address 0.0.0.0:69 -s /tftpboot
 rpcbind
 service nfs-kernel-server start

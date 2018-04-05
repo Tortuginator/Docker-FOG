@@ -1,27 +1,28 @@
-FROM debian:latest
+FROM ubuntu:latest
 MAINTAINER Felix Friedberger <felix.friedberger@rwth-aachen.de>
 
 ADD startInstance.sh /tmp
 ADD firstSetup.sh /tmp
-ADD patchInstall.sh /tmp
-COPY ./fog_1.5.0 /tmp/fog_1.5.0
+ADD fixChain.py /tmp
 
 ##DOWNLOAD ALL PACKAGES
 RUN apt-get update \
- && apt-get -y dist-upgrade \
- && apt-get update 
-RUN apt-get install -y php apache2 libapache2-mod-php mysql-server git 
-RUN apt-get install -y wget net-tools nano
-
-##CLEANUP & INSTALL FOG USING STANDART SCRIPT
+ && apt-get upgrade
+RUN apt-get install -y iproute2 locales wget net-tools nano git
+RUN apt-get install -y python2.7 python-pip
 RUN apt-get clean 
-RUN a2enmod rewrite \
- && cd /tmp \
- && bash ./firstSetup.sh \
- && cd fog_1.5.0/bin 
- && bash ./tmp/patchInstall.sh | bash ./installfog.sh
+
+##INSTALL FOG USING STANDARD SCRIPT
+RUN wget -P /tmp https://github.com/FOGProject/fogproject/releases/download/1.5.0/fog_1.5.0.tar.gz
+RUN cd /tmp/fog_1.5.0/bin \
+ && bash ./installfog.sh -y 
+
+##SETUP AUTOSTART and CONFIG
+RUN cd \
+ && python /tmp/fixChain.py
+ && bash /tmp/firstSetup.sh 
  
 EXPOSE 21/tcp 80/tcp 111/tcp 2049/tcp 4045/tcp 8099/tcp 9098/tcp 34463/tcp 69/udp 111/udp 212/udp 2049/udp 4045/udp 34463/udp
 
 ##AUTOSTART
-ENTRYPOINT ["/bin/bash"]
+CMD ["/tmp/startInstance.sh"]

@@ -1,0 +1,27 @@
+######in host OS ########
+docker pull ubuntu:latest
+
+docker run -it -p 212:212/udp -p 9098:9098 -p 21:21 -p 80:80 -p 69:69/udp -p 8099:8099 -p 2049:2049 -p 2049:2049/udp -p 111:111/udp -p 4045:4045/udp -p 4045:4045 -p 111:111 -p 34463:34463/udp -p 34463:34463 --privileged -e WEB_HOST_PORT=80 ubuntu:latest
+
+######in Dockerinstance######
+apt-get update 
+apt-get upgrade
+apt-get install -y iproute2 locales wget net-tools nano
+apt-get clean
+
+##Setup Locals
+locale-gen us_US.UTF-8
+
+##Download FOG
+wget -P /tmp https://github.com/FOGProject/fogproject/releases/download/1.5.0/fog_1.5.0.tar.gz
+tar -C /tmp/ -xzvf /tmp/fog_1.5.0.tar.gz
+cd /tmp/fog_1.5.0/bin/ && bash ./installfog.sh
+
+##Setup autostart
+echo "service apache2 start" >>/etc/bash.bashrc
+echo "mysqld &" >>/etc/bash.bashrc
+echo "in.tftpd --listen --address 0.0.0.0:69 -s /tftpboot" >>/etc/bash.bashrc
+echo "/usr/bin/freshclam -d --quiet" >>/etc/bash.bashrc
+echo "rpcbind" >>/etc/bash.bashrc
+
+##Setup Routes

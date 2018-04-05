@@ -16,7 +16,7 @@ with open('\tftpboot\default.ipxe', 'w') as file:
     file.writelines( data )
 	
 ##PHP config TFTP/WEB
-with open('\tftpboot\default.ipxe', 'r') as file:
+with open('/var/www/fog/lib/fog/config.class.php', 'r') as file:
     data = file.readlines()
 
 for i in range(0,len(data)):

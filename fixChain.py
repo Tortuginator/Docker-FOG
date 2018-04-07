@@ -22,17 +22,30 @@ with open('/var/www/fog/lib/fog/config.class.php', 'r') as file:
 for i in range(0,len(data)):
 	#IP
 	if "TFTP_HOST" in data[i]:
-		data[i] = "define('TFTP_HOST', \""  + str(os.environ['EXTIP']) + "\");"
+		data[i] = "	define('TFTP_HOST', \""  + str(os.environ['EXTIP']) + "\");\n"
 	if "WOL_HOST" in data[i]:
-		data[i] = "define('WOL_HOST', \""  + str(os.environ['EXTIP']) + "\");"
+		data[i] = "	define('WOL_HOST', \""  + str(os.environ['EXTIP']) + "\");\n"
 	if "WEB_HOST" in data[i]:
-		data[i] = "define('WEB_HOST', \""  + str(os.environ['EXTIP']) + "\");"	
+		data[i] = "	define('WEB_HOST', \""  + str(os.environ['EXTIP']) + "\");\n"	
+	if "STORAGE_HOST" in data[i]:
+		data[i] = "	define('STORAGE_HOST', \""  + str(os.environ['EXTIP']) + "\");\n"	
 	#INTERFACE
 	if "WOL_INTERFACE" in data[i]:
-		data[i] = "define('WOL_INTERFACE', \"eth0\");"
+		data[i] = "	define('WOL_INTERFACE', \"eth0\");\n"
 	if "NFS_ETH_MONITOR" in data[i]:
-		data[i] = "define('NFS_ETH_MONITOR', \"eth0\");"
+		data[i] = "	define('NFS_ETH_MONITOR', \"eth0\");\n"
 	if "UDPCAST_INTERFACE" in data[i]:
-		data[i] = "define('UDPCAST_INTERFACE', \"eth0\");"
+		data[i] = "	define('UDPCAST_INTERFACE', \"eth0\");\n"
 with open('/var/www/fog/lib/fog/config.class.php', 'w') as file:
+    file.writelines( data )
+	
+##TFTPD config
+with open('/etc/default/tftpd-hpa', 'r') as file:
+    data = file.readlines()
+	
+for i in range(0,len(data)):
+	if "TFTP_ADDRESS" in data[i]:
+		data[i] = 'TFTP_ADDRESS="[::1]:69"\n'
+		
+with open('/etc/default/tftpd-hpa', 'w') as file:
     file.writelines( data )

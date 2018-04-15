@@ -14,10 +14,15 @@ Please adjust the **EXTIP** to match the Hosts external ip address. This is ness
 When correctly setup, a login page should appear at: [http://172.0.0.1:80/fog/](http://172.0.0.1:80/fog)(Change the IP according to the hosts IP). As of version 1.5.0 it is configured with following login credentials:
 
 >Username:fog
-
 >Password:password
 
 It is Highly recommandet to **IMEDIATELY** change theese upon first login.
+## Can I change the IP address after the first start of the container?
+Yes this is possible. Simply run 
 
-##Disclaimer
+    docker -i <CONTAINER ID> /bin/bash -c "export EXTIP=X.X.X.X && python tmp/fixChain.py"
+    docker restart <CONTAINER ID>
+
+Make sure you replace your <CONTAINER ID> with your own container id and X.X.X.X with the new IP address. You can look it up by using "docker container ls"
+## Disclaimer
 THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESSED OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE CONTRIBUTOR(S) BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.

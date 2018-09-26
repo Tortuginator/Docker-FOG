@@ -3,14 +3,14 @@ MAINTAINER Felix Friedberger <felix.friedberger@rwth-aachen.de>
 
 ADD startInstance.sh /tmp
 ADD firstSetup.sh /tmp
-ADD fixChain.py /tmp
-COPY \fog_1.5.0 /tmp
+COPY \fogproject /tmp
+ADD respond.txt /tmp
+ADD functions.sh /tmp
+ADD updateIP.sh /tmp
+COPY etc/init.d/vsftpd /etc/init.d/
 
-##INSTALL FOG USING STANDARD SCRIPT
-##RUN wget -P /tmp https://github.com/FOGProject/fogproject/releases/download/1.5.0/fog_1.5.0.tar.gz
-##RUN tar -C /tmp/ -xzvf /tmp/fog_1.5.0.tar.gz
-RUN cd /tmp/fog_1.5.0/bin \
- && bash ./installfog.sh -y 
+RUN cd /tmp/fogproject/bin \
+ && cat /tmp/respond.txt | bash ./installfog.sh -X 
 
 ##SETUP AUTOSTART and CONFIG
 RUN cd \

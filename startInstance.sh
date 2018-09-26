@@ -1,7 +1,6 @@
 #!/bin/bash
 /etc/init.d/rpcbind stop
 #Trigger service start
-python /tmp/fixChain.py
 /etc/init.d/rpcbind start
 /etc/init.d/vsftpd start
 /etc/init.d/mysql start

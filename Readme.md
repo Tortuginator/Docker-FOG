@@ -24,5 +24,9 @@ docker -i <CONTAINER ID> /bin/bash -c "export EXTIP=<X.X.X.X> && python tmp/fixC
 docker restart <CONTAINER ID>
 ```
 Make sure you replace your **<CONTAINER ID>** with your own container id and **<X.X.X.X>** with the new IP address. You can look up the container id by using `docker container ls` . If you are running Docker on a Synology server, make sure the Environment variable is adjusted in the settings of your container.
+
+## Things to be aware of
+ - [This Bug](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=754762) prevents the vsftpd service from starting and sometimes brings the system to a hold. I patched it using a custom init.d file. This might not work in the future and the solution is a bit "hacky".
+
 ## Disclaimer
 THIS SOFTWARE IS PROVIDED ''AS IS'' AND ANY EXPRESSED OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE CONTRIBUTOR(S) BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.

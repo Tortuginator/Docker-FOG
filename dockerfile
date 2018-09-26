@@ -8,7 +8,7 @@ ADD respond.txt /tmp
 ADD functions.sh /tmp
 ADD updateIP.sh /tmp
 COPY etc/init.d/vsftpd /etc/init.d/
-
+ADD fixIP.py /tmp
 RUN cd /tmp/fogproject/bin \
  && cat /tmp/respond.txt | bash ./installfog.sh -X 
 

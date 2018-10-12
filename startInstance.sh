@@ -1,6 +1,7 @@
 #!/bin/bash
-python fixIP.py
+python /tmp/fixIP.py
 mkdir /run/sendsigs.omit.d/ -p
+echo "ServerName localhost" | tee /etc/apache2/conf.d/fqdn
 /etc/init.d/rpcbind stop
 #Trigger service start
 /etc/init.d/rpcbind start
